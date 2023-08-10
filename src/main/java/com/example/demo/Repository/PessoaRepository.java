@@ -12,7 +12,7 @@ import java.util.List;
 @Repository
 public interface PessoaRepository extends JpaRepository<Pessoa, Long> {
 
-    @Query("From Pessoa nome = :nome")
-    Pessoa findByNome(@Param("nome")final String nome);
+    @Query("from Pessoa where nome = :nome")
+    public List<Pessoa> findByNome(@Param("nome") final String nome);
 
 }

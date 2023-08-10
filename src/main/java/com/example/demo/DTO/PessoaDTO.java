@@ -6,4 +6,11 @@ import lombok.Data;
 public class PessoaDTO {
     private Long id;
     private String nome;
+
+    public PessoaDTO() {
+    }
+
+    public PessoaDTO( String nome) {
+        this.nome = nome;
+    }
 }

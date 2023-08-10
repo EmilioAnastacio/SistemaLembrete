@@ -19,4 +19,11 @@ public class Pessoa {
     @Column(name = "nome")
     private String nome;
 
+    public Pessoa() {
+    }
+
+    public Pessoa(Long id, String nome) {
+        this.id = id;
+        this.nome = nome;
+    }
 }

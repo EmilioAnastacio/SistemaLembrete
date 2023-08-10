@@ -23,4 +23,12 @@ public class Lembrete {
     @JoinColumn(name = "idPessoa")
     private Pessoa idPessoa;
 
+  public Lembrete(){
+
+  }
+
+  public Lembrete(String conteudo, Pessoa idPessoa) {
+        this.conteudo = conteudo;
+        this.idPessoa = idPessoa;
+  }
 }

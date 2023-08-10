@@ -7,7 +7,14 @@ import java.util.Date;
 
 @Data
 public class LembreteDTO {
-    private String conteudoLembrete;
+    private String conteudo;
     private Long idPessoa;
 
+    public LembreteDTO(String conteudo, Long idPessoa) {
+        this.conteudo = conteudo;
+        this.idPessoa = idPessoa;
+    }
+
+    public LembreteDTO() {
+    }
 }

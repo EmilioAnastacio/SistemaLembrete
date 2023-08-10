@@ -33,15 +33,21 @@ public class PessoaController {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<Pessoa> buscarPorNome(@RequestParam("nome") String nome) {
-
+    @GetMapping("/buscar-nome")
+    public ResponseEntity<List<PessoaDTO>> findByNome(@RequestParam("nome") String nome) {
         try {
-            Pessoa pessoasEncontradas = pessoaService.buscarPorNome(nome);
+            List<PessoaDTO> pessoasEncontradas = pessoaService.findByNome(nome);
+
+            if (pessoasEncontradas.isEmpty()) {
+                return ResponseEntity.notFound().build();
+            }
 
             return ResponseEntity.ok(pessoasEncontradas);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(null);
         }
     }
+
 }

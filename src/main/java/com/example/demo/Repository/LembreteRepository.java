@@ -10,7 +10,7 @@ import java.util.List;
 @Repository
 public interface LembreteRepository extends JpaRepository<Lembrete, Long> {
 
-    @Query("FROM Lembrete idPessoa = :idPessoa")
-    List<Lembrete> findByPessoa(@Param("idPessoa")final Long id);
+    @Query("from Lembrete where idPessoa.nome = :nome")
+    List<Lembrete> findByNomePessoa(@Param("nome") String nome);
 
 }

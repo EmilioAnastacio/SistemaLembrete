@@ -6,6 +6,7 @@ import com.example.demo.Entity.Lembrete;
 import com.example.demo.Service.LembreteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.Assert;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,7 +18,7 @@ public class LembreteController {
     @Autowired
     private LembreteService lembreteService;
 
-    @PostMapping
+    @PostMapping("/cadastrar")
     public ResponseEntity<Lembrete> cadastrar(@RequestBody LembreteDTO lembreteDTO) {
         try {
             Lembrete novoLembrete = lembreteService.cadastrar(lembreteDTO);
@@ -33,22 +34,23 @@ public class LembreteController {
             return ResponseEntity.status(500).body(null);
         }
     }
-
-    @GetMapping("/buscarPessoa")
-    public ResponseEntity<List<Lembrete>> buscarPorPessoa(@RequestParam("idPessoa") Long idPessoa) {
+    @GetMapping("/buscarNome")
+    public ResponseEntity<List<Lembrete>> findByNomePessoa(@RequestParam("nome") String nome) {
         try {
-            PessoaDTO pessoaDTO = new PessoaDTO();
-            pessoaDTO.setId(idPessoa);
+            Assert.isTrue(nome != null && !nome.isEmpty() && nome.length() <= 100, "Nome inválido.");
 
-            List<Lembrete> lembretesEncontrados = lembreteService.buscarPorPessoa(pessoaDTO);
+            List<Lembrete> lembretesEncontrados = lembreteService.findByNomePessoa(nome);
 
             if (lembretesEncontrados.isEmpty()) {
                 return ResponseEntity.notFound().build();
             }
 
             return ResponseEntity.ok(lembretesEncontrados);
+        } catch (IllegalArgumentException e) {
+            return ResponseEntity.badRequest().body(null);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(null);
         }
     }
+
 }
