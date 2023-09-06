@@ -27,6 +27,17 @@ public class PessoaService {
         return pessoaRepository.save(pessoa);
     }
 
+    public Pessoa editar(Long id,Pessoa pessoa){
+        final Pessoa pessoaBanco = this.buscarPorId(id);
+        if (pessoaBanco == null || !pessoaBanco.getId().equals(pessoa.getId())) {
+            System.out.println(pessoaBanco.getId());
+            System.out.println(pessoa.getId());
+            throw new RuntimeException("não foi possivel identificar a pessoa informada!");
+        }
+        return pessoaRepository.save(pessoa);
+    }
+
+
     public List<PessoaDTO> findByNome(String nome) {
         List<Pessoa> pessoasEncontradas = pessoaRepository.findByNome(nome);
         return pessoasEncontradas.stream()
